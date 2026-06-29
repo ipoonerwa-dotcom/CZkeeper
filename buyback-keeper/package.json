@@ -1,0 +1,14 @@
+{
+  "name": "buyback-keeper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "回购转发金库 keeper —— permissionless 触发 buyback()",
+  "scripts": {
+    "start": "node buyback-keeper.mjs",
+    "loop": "LOOP=1 node buyback-keeper.mjs"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0"
+  }
+}
