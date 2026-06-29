@@ -1,11 +1,19 @@
+# 回购转发金库 keeper —— GitHub Actions(配合 cron-job.org 外部触发更稳)
+#   仓库设 Public(Actions 无限免费;私有库 2000min/月不够)
+#   Settings → Secrets: KEEPER_PK ; Variables: VAULT (可选 RPC_URL)
+# GitHub 自带 schedule 不稳(常延迟/跳过)→ 用 cron-job.org 打 workflow_dispatch API,每 3 分钟触发。
+#   (金库间隔 3min;cron-job.org 要设每 3min 才能保证频率,5min 会变成每 5min 一次)
 name: buyback-keeper
+
 on:
   schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch: {}
+    - cron: "*/5 * * * *" # 备份(GitHub 最小粒度 5min 且不稳;真节奏靠 cron-job.org 每3min)
+  workflow_dispatch: {} # cron-job.org 打这个
+
 concurrency:
   group: buyback-keeper
   cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest
